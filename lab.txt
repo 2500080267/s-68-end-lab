@@ -1,0 +1,205 @@
+GIT BASICS - 10 COMMON COMMANDS
+
+1.  git init Meaning: Creates a new Git repository in the current
+    folder.
+
+2.  git status Meaning: Shows which files are untracked, modified,
+    staged, or committed.
+
+3.  git add Meaning: Adds a file to the staging area. Example: git add
+    index.html
+
+4.  git add . Meaning: Adds all new and modified files in the current
+    folder to the staging area.
+
+5.  git commit -m “message” Meaning: Saves staged changes as a commit
+    with a description. Example: git commit -m “Create homepage”
+
+6.  git log Meaning: Displays the commit history.
+
+7.  git diff Meaning: Shows unstaged changes made to tracked files.
+
+8.  git branch Meaning: Lists local branches. Use git branch -M main to
+    rename the current branch to main.
+
+9.  git remote -v Meaning: Displays the remote repositories connected to
+    the local repository.
+
+10. git push Meaning: Uploads local commits to a remote repository such
+    as GitHub.
+
+PRACTICAL TASK: CREATE A REPOSITORY, MAKE 3 COMMITS, CHECK, AND PUSH
+
+STEP 1 - Create a project folder
+
+Create a folder named git-practice, then open it in VS Code or Git Bash.
+
+mkdir git-practice cd git-practice
+
+STEP 2 - Initialize Git
+
+git init
+
+This starts tracking the folder with Git.
+
+STEP 3 - Create index.html
+
+Create a file named index.html in the git-practice folder and add:
+
+<!DOCTYPE html>
+My Git Practice
+Hello, Git!
+STEP 4 - COMMIT 1: Create the HTML file
+
+git add index.html git commit -m “Create index.html”
+
+STEP 5 - COMMIT 2: Add a paragraph
+
+Edit index.html. Add this line inside the body, below the h1:
+
+This is my first Git practice project.
+Save, then run:
+
+git add index.html git commit -m “Add introduction paragraph”
+
+STEP 6 - COMMIT 3: Add a footer
+
+Edit index.html. Add this line below the paragraph:
+
+Created while learning Git
+Save, then run:
+
+git add index.html git commit -m “Add footer”
+
+STEP 7 - Check the commit history
+
+git log –oneline
+
+You should see three commits, with the newest commit at the top.
+
+STEP 8 - Check the repository status
+
+git status
+
+If everything is committed, Git should report: “nothing to commit,
+working tree clean”
+
+STEP 9 - Create and connect a GitHub repository
+
+1.  Open https://github.com
+2.  Create a NEW repository.
+3.  Give it a name, for example: git-practice.
+4.  Keep it empty: do not add a README, license, or .gitignore.
+5.  Copy the repository’s HTTPS URL.
+
+Connect your local project (replace the example URL with your own):
+
+git remote add origin https://github.com/YOUR-USERNAME/git-practice.git
+
+Check the remote:
+
+git remote -v
+
+STEP 10 - Push to GitHub
+
+Rename the current branch to main:
+
+git branch -M main
+
+Push your commits:
+
+git push -u origin main
+
+Complete GitHub sign-in if prompted. Refresh the GitHub repository page.
+You should see index.html and the three commits.
+
+UNDOING CHANGES: git revert, git reset, AND git restore
+
+A. git revert
+
+Meaning: Creates a NEW commit that reverses the changes made by an
+earlier commit. It does not delete the old commit from history.
+
+View commits:
+
+git log –oneline
+
+Copy the ID of the commit you want to undo, then run:
+
+git revert COMMIT_ID
+
+Example:
+
+git revert a1b2c3d
+
+Git may open an editor for the revert commit message. Save and close it.
+Then push the new revert commit:
+
+git push
+
+Use revert when the commit has already been pushed or shared with
+others.
+
+B. git reset
+
+Meaning: Moves the current branch back to an earlier commit. Depending
+on the option, it can also change what happens to your staged and
+working-file changes.
+
+1.  Soft reset:
+
+git reset –soft HEAD~1
+
+Undo the latest commit, but keep its changes staged.
+
+2.  Mixed reset (default):
+
+git reset HEAD~1
+
+Undo the latest commit and keep its changes in your working folder, but
+unstaged.
+
+3.  Hard reset:
+
+git reset –hard HEAD~1
+
+Undo the latest commit AND discard its changes from the working folder.
+
+WARNING: –hard can permanently discard uncommitted work. Use it only
+when you are certain you do not need those changes.
+
+Important: Avoid resetting commits that you have already pushed to a
+shared GitHub branch. It rewrites local history and can cause problems
+for collaborators. Prefer git revert for pushed commits.
+
+C. git restore
+
+Meaning: Discards changes in a file that have not been committed.
+
+Discard unstaged changes in one file:
+
+git restore index.html
+
+Unstage a file but keep its edits:
+
+git restore –staged index.html
+
+WARNING: The first command discards the file’s unstaged edits. Make sure
+you do not need them before running it.
+
+QUICK DIFFERENCE
+
+git revert = Safely undo a commit by creating another commit. git reset
+= Move the branch back; may keep or discard changes depending on option.
+git restore = Discard file edits or remove a file from staging.
+
+SUGGESTED PRACTICE
+
+Try these commands in a test repository first. Before undoing anything,
+check:
+
+git status git log –oneline
+
+After each undo operation, check again:
+
+git status git log –oneline
